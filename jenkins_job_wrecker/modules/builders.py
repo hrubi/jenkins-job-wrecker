@@ -102,3 +102,18 @@ def batchfile(child, parent):
                                       "XML %s" % shell_element.tag)
 
     parent.append({'batch': shell})
+
+
+def sshbuilder(child, parent):
+    ssh_builder = {}
+    for ssh_element in child:
+        if ssh_element.tag == 'siteName':
+            if ssh_element.text is not None:
+                ssh_builder['ssh-user-ip'] = ssh_element.text
+        elif ssh_element.tag == 'command':
+            if ssh_element.text is not None:
+                ssh_builder['command'] = ssh_element.text
+        else:
+            continue
+
+    parent.append({'ssh-builder': ssh_builder})
